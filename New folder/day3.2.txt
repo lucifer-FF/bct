@@ -1,0 +1,9 @@
+age =int(input(enter your age))
+if(age>0 and age<=5):
+print("kid")
+elif(age>5 and age<=13):
+print("child")
+elif(age>13nd age<=19
+print("child")
+else:
+print(adult)
