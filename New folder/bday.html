@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday Sreejita</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to bottom right, #fff0f5, #e0f7fa);
+      color: #6b0f8e;
+      text-align: center;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Pacifico', cursive;
+    }
+
+    .container {
+      padding: 2rem 1rem;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      margin: 2rem auto;
+      padding: 2rem;
+      max-width: 600px;
+    }
+
+    .image-block img {
+      width: 100%;
+      border-radius: 15px;
+    }
+
+    .section-title {
+      margin-top: 1.5rem;
+      font-size: 1.5rem;
+      color: #ff4081;
+    }
+
+    #friendshipTimer {
+      font-size: 3rem;
+      font-weight: bold;
+      margin: 1rem 0;
+      color: #ff1493;
+    }
+
+    .button {
+      background: linear-gradient(to right, #ff69b4, #c850c0);
+      color: white;
+      padding: 0.8rem 1.5rem;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 1rem;
+    }
+
+    #birthdayMessage {
+      display: none;
+      margin-top: 1rem;
+      font-size: 1.1rem;
+      text-align: left;
+    }
+
+    .emoji {
+      font-size: 1.4rem;
+    }
+
+    .music-toggle {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background: #fff;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .gallery img {
+      width: 100%;
+      border-radius: 10px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .gallery img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+@keyframes float {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(-100px); opacity: 0; }
+}
+
+.balloon {
+  position: fixed;
+  bottom: -50px;
+  font-size: 2rem;
+  animation: float 6s infinite ease-in;
+  color: #ff69b4;
+  z-index: 0;
+}
+
+.balloon:nth-child(1) { left: 10%; animation-delay: 0s; }
+.balloon:nth-child(2) { left: 30%; animation-delay: 2s; }
+.balloon:nth-child(3) { left: 50%; animation-delay: 4s; }
+.balloon:nth-child(4) { left: 70%; animation-delay: 1s; }
+.balloon:nth-child(5) { left: 90%; animation-delay: 3s; }
+  </style>
+</head>
+<body>
+<div class="balloon">🎈</div>
+<div class="balloon">🎈</div>
+<div class="balloon">🎈</div>
+<div class="balloon">🎈</div>
+<div class="balloon">🎈</div>
+  <!-- 🎵 Background Music -->
+ <audio autoplay loop>
+  <source src="https://www.fesliyanstudios.com/play-mp3/387" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+
+  <button class="music-toggle" onclick="toggleMusic()">🔊</button>
+
+  <div class="container">
+    <h1>🎉 Happy Birthday, Sreejita! 🎂</h1>
+    <p>Wishing you joy, laughter, and endless memories 💛</p>
+
+    <div class="card">
+      <h2>Our Friendship</h2>
+      <div id="friendshipTimer">∞</div>
+      <p>Infinite Days of Friendship</p>
+      <p class="emoji">🌟💛</p>
+    </div>
+
+    <div class="card">
+      <div class="image-block">
+        <h2 class="section-title">Birthday Queen</h2>
+        <img src="https://i.postimg.cc/QxCftZNk/bday9.jpg" alt="Sreejita in saree">
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Your Birthday Surprise Awaits! 🎁</h2>
+      <button class="button" onclick="showMessage()">Tap here to reveal ✨</button>
+      <div id="birthdayMessage">
+        <h3>A Message From My Heart 💌</h3>
+        <p>
+          Happy Birthday, Sreejita! 🎉🎂<br><br>
+          On your special day, I just want to say a big thank you — for being there for me during one of the toughest phases of my life. You listened to all my bakwas without complaining, motivated me when I had zero energy left, and reminded me of my worth when I had forgotten it.<br><br>
+          Your support means everything to me.<br><br>
+          As you step into your first year of college, I wish you nothing but endless success, happiness, and unforgettable memories. You’re going to shine bright — I already know it!<br><br>
+          Can’t wait for you to arrive on campus — college is going to be 10x more fun with you around!<br><br>
+          Have the most amazing birthday, you truly deserve it! 💛
+        </p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 class="section-title">Keep Smiling And Best Of Luck In Your Future Endevaours 📷</h2>
+      <div class="gallery">
+        <img src="https://i.postimg.cc/cHyrSvGr/bday.jpg" alt="Birthday Moment 1">
+        <img src="https://i.postimg.cc/NF0YqtFK/bday2.jpg" alt="Birthday Moment 2">
+        <img src="https://i.postimg.cc/GtfWWs6f/bday3.jpg" alt="Birthday Moment 3">
+        <img src="https://i.postimg.cc/SsM1ntPg/b4.jpg" alt="Birthday Moment 4">
+        <img src="https://i.postimg.cc/5tq6fx4g/b5.jpg" alt="Birthday Moment 5">
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function showMessage() {
+      document.getElementById("birthdayMessage").style.display = 'block';
+    }
+
+    const bgMusic = document.getElementById('bgMusic');
+    let isPlaying = true;
+
+    function toggleMusic() {
+      const btn = event.target;
+      if (isPlaying) {
+        bgMusic.pause();
+        btn.textContent = '🔇';
+      } else {
+        bgMusic.play();
+        btn.textContent = '🔊';
+      }
+      isPlaying = !isPlaying;
+    }
+  </script>
+</body>
+</html>
