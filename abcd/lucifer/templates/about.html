@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About</title>
+    <link rel="stylesheet" href="{% static 'about.css' %}">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <a href="/" class="nav-item">Home</a>
+            <a href="/about" class="nav-item">About</a>
+            <a href="/products" class="nav-item">Products</a>
+            {% if user.is_authenticated %}
+                <span class="nav-item">Welcome, {{ user.username }}!</span>
+                <a href="/admin/" class="nav-item">Admin</a>
+                <a href="/logout" class="nav-item">Logout</a>
+            {% else %}
+                <a href="/login" class="nav-item">Login</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="about-hero">
+            <h1>About Us</h1>
+            <p>We are a simple, clean, and modern website</p>
+        </section>
+
+        <section class="about-content">
+            <h2>Our Story</h2>
+            <p>We believe in creating simple and elegant web experiences. Our focus is on clean design, fast performance, and user-friendly interfaces.</p>
+        </section>
+
+        <section class="about-content">
+            <h2>Our Values</h2>
+            <div class="values-grid">
+                <div class="value-card">
+                    <h3>Simplicity</h3>
+                    <p>Everything should be simple and straightforward</p>
+                </div>
+                <div class="value-card">
+                    <h3>Quality</h3>
+                    <p>We prioritize quality in everything we do</p>
+                </div>
+                <div class="value-card">
+                    <h3>Innovation</h3>
+                    <p>Always looking for ways to improve and innovate</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2026 Simple Site</p>
+    </footer>
+</body>
+</html>

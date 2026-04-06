@@ -1,0 +1,57 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <a href="/" class="nav-item">Home</a>
+            <a href="/about" class="nav-item">About</a>
+            <a href="/products" class="nav-item">Products</a>
+            {% if user.is_authenticated %}
+                <span class="nav-item">Welcome, {{ user.username }}!</span>
+                <a href="/admin/" class="nav-item">Admin</a>
+                <a href="/logout" class="nav-item">Logout</a>
+            {% else %}
+                <a href="/login" class="nav-item">Login</a>
+                <a href="/signup" class="nav-item">Sign Up</a>
+            {% endif %}
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <h1>Welcome</h1>
+            <p>A simple and clean homepage</p>
+            <a href="/about" class="btn">Learn More</a>
+        </section>
+
+        <section class="features">
+            <h2>Features</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>Simple</h3>
+                    <p>Clean and minimalist design</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Fast</h3>
+                    <p>Optimized for performance</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Responsive</h3>
+                    <p>Works on all devices</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2026 Simple Site</p>
+    </footer>
+</body>
+</html>
