@@ -1,0 +1,505 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ product.name }} - Product Details</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <style>
+        .detail-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        .breadcrumb {
+            margin-bottom: 20px;
+        }
+        .breadcrumb a {
+            color: #4CAF50;
+            text-decoration: none;
+            margin-right: 10px;
+        }
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+        .product-main {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+        .product-image {
+            width: 100%;
+            max-width: 500px;
+        }
+        .product-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        .no-image {
+            width: 100%;
+            height: 500px;
+            background-color: #f0f0f0;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 18px;
+        }
+        .product-info h1 {
+            font-size: 32px;
+            margin: 0 0 10px 0;
+            color: #333;
+        }
+        .product-rating {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            gap: 10px;
+        }
+        .stars {
+            color: #ffc107;
+            font-size: 18px;
+        }
+        .rating-count {
+            color: #666;
+            font-size: 14px;
+        }
+        .product-price-detail {
+            font-size: 36px;
+            color: #4CAF50;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+        .product-description-detail {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+        .reviews-section {
+            background: #f9f9f9;
+            padding: 40px;
+            border-radius: 8px;
+            margin-bottom: 60px;
+        }
+        .reviews-section h2 {
+            font-size: 24px;
+            margin: 0 0 30px 0;
+            color: #333;
+        }
+        .review-form {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border: 1px solid #ddd;
+        }
+        .review-form h3 {
+            margin: 0 0 20px 0;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+        }
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 14px;
+        }
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #4CAF50;
+            box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+        }
+        .btn-submit {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+        }
+        .btn-submit:hover {
+            background-color: #45a049;
+        }
+        .reviews-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .review-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 10px;
+        }
+        .review-author {
+            font-weight: 600;
+            color: #333;
+        }
+        .review-date {
+            color: #999;
+            font-size: 13px;
+        }
+        .review-rating {
+            color: #ffc107;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        .review-comment {
+            color: #666;
+            line-height: 1.5;
+        }
+        .no-reviews {
+            text-align: center;
+            padding: 30px;
+            color: #999;
+        }
+        .recommended-section {
+            margin-top: 60px;
+        }
+        .recommended-section h2 {
+            font-size: 24px;
+            margin: 0 0 30px 0;
+            color: #333;
+        }
+        .recommended-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        .recommended-card {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        .recommended-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        .recommended-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+        .recommended-card .no-image {
+            height: 200px;
+            margin-bottom: 15px;
+        }
+        .recommended-card h3 {
+            margin: 0 0 10px 0;
+            color: #333;
+        }
+        .recommended-price {
+            font-size: 20px;
+            color: #4CAF50;
+            font-weight: bold;
+        }
+        @media (max-width: 768px) {
+            .product-main {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .recommended-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+            .product-info h1 {
+                font-size: 24px;
+            }
+            .product-price-detail {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <a href="/" class="nav-item">Home</a>
+            <a href="/about" class="nav-item">About</a>
+            <a href="/products" class="nav-item">Products</a>
+            {% if user.is_authenticated %}
+                <span class="nav-item">Welcome, {{ user.username }}!</span>
+                <a href="/admin/" class="nav-item">Admin</a>
+                <a href="/cart" class="nav-item">🛒 Cart</a>
+                <a href="/my-orders" class="nav-item">📦 Orders</a>
+                <a href="/logout" class="nav-item">Logout</a>
+            {% else %}
+                <a href="/login" class="nav-item">Login</a>
+                <a href="/signup" class="nav-item">Sign Up</a>
+            {% endif %}
+        </nav>
+    </header>
+
+    <div class="detail-container">
+        <!-- Breadcrumb -->
+        <div class="breadcrumb">
+            <a href="/">Home</a> / 
+            <a href="/products">Products</a> / 
+            <span>{{ product.name }}</span>
+        </div>
+
+        <!-- Messages -->
+        {% if messages %}
+            {% for message in messages %}
+                <div style="padding: 10px; margin-bottom: 15px; background-color: #d4edda; border: 1px solid #c3e6cb; border-radius: 4px; color: #155724;">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <!-- Product Main Section -->
+        <div class="product-main">
+            <!-- Product Image -->
+            <div class="product-image">
+                {% if product.image %}
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                {% else %}
+                    <div class="no-image">No Image Available</div>
+                {% endif %}
+            </div>
+
+            <!-- Product Info -->
+            <div class="product-info">
+                <h1>{{ product.name }}</h1>
+                
+                <div class="product-rating">
+                    <div class="stars">
+                        {% if average_rating %}
+                            {% for i in "12345" %}
+                                {% if i|add:0 <= average_rating %}★{% else %}☆{% endif %}
+                            {% endfor %}
+                            <span class="rating-count">({{ reviews|length }} review{{ reviews|length|pluralize }})</span>
+                        {% else %}
+                            <span class="rating-count">No ratings yet</span>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="product-price-detail">${{ product.price }}</div>
+
+                <div class="product-description-detail">
+                    {{ product.description }}
+                </div>
+
+                <!-- Purchase Section -->
+                <div style="background: #f9f9f9; padding: 25px; border-radius: 8px; border: 2px solid #e0e0e0; margin-top: 30px;">
+                    {% if user.is_authenticated %}
+                        <form method="POST" action="{% url 'add_to_cart' product.id %}">
+                            {% csrf_token %}
+                            
+                            <!-- Quantity Selection -->
+                            <div class="form-group">
+                                <label for="quantity">Quantity:</label>
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <button type="button" onclick="decreaseQuantity()" style="width: 40px; height: 40px; border: 1px solid #ddd; background: white; cursor: pointer; border-radius: 4px; font-size: 18px;">−</button>
+                                    <input type="number" id="quantity" name="quantity" value="1" min="1" style="width: 60px; padding: 10px; border: 1px solid #ddd; border-radius: 4px; text-align: center; font-size: 16px;">
+                                    <button type="button" onclick="increaseQuantity()" style="width: 40px; height: 40px; border: 1px solid #ddd; background: white; cursor: pointer; border-radius: 4px; font-size: 18px;">+</button>
+                                </div>
+                            </div>
+
+                            <!-- Customization Section -->
+                            <div class="form-group">
+                                <label for="customization">Customize Product (Optional):</label>
+                                <textarea id="customization" name="customization" placeholder="e.g., Color preference, Size, Special instructions, Engravings, etc." style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; min-height: 80px; font-family: inherit; font-size: 14px;"></textarea>
+                                <p style="font-size: 12px; color: #999; margin-top: 5px;">Add any special requests or customization details for this product</p>
+                            </div>
+
+                            <!-- Buttons -->
+                            <div style="display: flex; gap: 15px; margin-top: 25px; flex-wrap: wrap;">
+                                <button type="submit" style="flex: 1; min-width: 200px; background-color: #4CAF50; color: white; padding: 14px 30px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; font-weight: 600; transition: background-color 0.3s;">
+                                    🛒 Add to Cart
+                                </button>
+                                <button type="button" onclick="buyNow(event)" style="flex: 1; min-width: 200px; background-color: #ff6b35; color: white; padding: 14px 30px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; font-weight: 600; transition: background-color 0.3s;">
+                                    ⚡ Buy Now
+                                </button>
+                            </div>
+                        </form>
+                    {% else %}
+                        <div style="padding: 20px; background: #fff3cd; border-radius: 8px; border-left: 4px solid #ffc107; color: #856404;">
+                            <p style="margin: 0; font-weight: 600;"><a href="/login" style="color: #0c5460; text-decoration: none; font-weight: 700;">Login</a> to purchase this product</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Reviews Section -->
+        <div class="reviews-section">
+            <h2>Customer Reviews</h2>
+
+            <!-- Review Form -->
+            {% if user.is_authenticated %}
+                <div class="review-form">
+                    <h3>Share Your Review</h3>
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="rating">Rating *</label>
+                            <select id="rating" name="rating" required>
+                                <option value="">Select a rating</option>
+                                <option value="5">★★★★★ Excellent (5 stars)</option>
+                                <option value="4">★★★★☆ Good (4 stars)</option>
+                                <option value="3">★★★☆☆ Average (3 stars)</option>
+                                <option value="2">★★☆☆☆ Poor (2 stars)</option>
+                                <option value="1">★☆☆☆☆ Terrible (1 star)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="comment">Your Review *</label>
+                            <textarea id="comment" name="comment" placeholder="Share your experience with this product..." required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn-submit">Submit Review</button>
+                    </form>
+                </div>
+            {% else %}
+                <div style="padding: 20px; background: #e3f2fd; border-radius: 8px; margin-bottom: 30px; color: #1976d2;">
+                    <p><a href="/login" style="color: #1976d2; font-weight: 600;">Login</a> to share your review</p>
+                </div>
+            {% endif %}
+
+            <!-- Reviews List -->
+            {% if reviews %}
+                <div class="reviews-list">
+                    {% for review in reviews %}
+                        <div class="review-card">
+                            <div class="review-header">
+                                <div>
+                                    <div class="review-author">{{ review.user.username }}</div>
+                                    <div class="review-date">{{ review.created_at|date:"M d, Y" }}</div>
+                                </div>
+                            </div>
+                            <div class="review-rating">
+                                {% for i in "12345" %}
+                                    {% if i|add:0 <= review.rating %}★{% else %}☆{% endif %}
+                                {% endfor %}
+                            </div>
+                            <div class="review-comment">{{ review.comment }}</div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="no-reviews">
+                    <p>No reviews yet. Be the first to review this product!</p>
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- Recommended Products Section -->
+        {% if similar_products %}
+            <div class="recommended-section">
+                <h2>Recommended Products</h2>
+                <div class="recommended-grid">
+                    {% for rec_product in similar_products %}
+                        <a href="{% url 'product_detail' rec_product.id %}" class="recommended-card">
+                            {% if rec_product.image %}
+                                <img src="{{ rec_product.image.url }}" alt="{{ rec_product.name }}">
+                            {% else %}
+                                <div class="no-image">No Image</div>
+                            {% endif %}
+                            <h3>{{ rec_product.name }}</h3>
+                            <p style="color: #666; font-size: 14px; margin: 10px 0;">
+                                {{ rec_product.description|truncatewords:15 }}
+                            </p>
+                            <div class="recommended-price">${{ rec_product.price }}</div>
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+
+    <footer class="footer"></footer>
+
+    <script>
+        function increaseQuantity() {
+            const qty = document.getElementById('quantity');
+            qty.value = parseInt(qty.value) + 1;
+        }
+
+        function decreaseQuantity() {
+            const qty = document.getElementById('quantity');
+            if (parseInt(qty.value) > 1) {
+                qty.value = parseInt(qty.value) - 1;
+            }
+        }
+
+        function buyNow(event) {
+            // Prevent default button behavior
+            event.preventDefault();
+            
+            // Get the form and submit it with a redirect parameter
+            const form = event.target.closest('form');
+            if (form) {
+                // Change the action to add to cart
+                const addToCartBtn = form.querySelector('button[type="submit"]');
+                const buyNowBtn = event.target;
+                
+                // Create a promise to wait for the form submission
+                const originalAction = form.action;
+                
+                // Submit form using fetch to handle redirect
+                const formData = new FormData(form);
+                
+                fetch(form.action, {
+                    method: 'POST',
+                    body: formData
+                }).then(response => {
+                    // After adding to cart, redirect to checkout
+                    window.location.href = '/checkout';
+                }).catch(error => {
+                    console.error('Error:', error);
+                });
+            }
+        }
+
+        // Prevent form submission on quantity buttons
+        document.querySelectorAll('button[type="button"]').forEach(btn => {
+            if (btn.textContent.includes('−') || btn.textContent.includes('+')) {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                });
+            }
+        });
+    </script>
+</body>
+</html>
